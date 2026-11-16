@@ -1,0 +1,150 @@
+{
+     "type_map": ["Pu","O","H"],
+     "mass_map": [239,16,2],
+     "init_data_prefix": "",
+     "init_data_sys": ["/home/zyz/user/zyz/dpgen/3/training_data/training_data_surface",
+                       "/home/zyz/user/zyz/dpgen/3/training_data/training_data_bluk",
+                       "/home/zyz/user/zyz/dpgen/3/training_data/training_data_water"],
+     "sys_configs_prefix": "",
+     "sys_configs": [
+         ["/home/zyz/user/zyz/dpgen/3/configs/surface/00/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/surface/01/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/surface/02/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/surface/03/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/surface/04/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/surface/05/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/surface/06/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/surface/07/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/surface/08/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/surface/09/POSCAR"],
+         ["/home/zyz/user/zyz/dpgen/3/configs/bulk/10/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/bulk/11/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/bulk/12/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/bulk/13/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/bulk/14/POSCAR"],
+         ["/home/zyz/user/zyz/dpgen/3/configs/water/20/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/water/21/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/water/22/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/water/23/POSCAR",
+         "/home/zyz/user/zyz/dpgen/3/configs/water/24/POSCAR"]          
+     ],
+     "_comment": " that's all ",
+     "numb_models": 4,
+     "train_backend": "pytorch",
+     "default_training_param": {
+         "model": {
+             "type_map": ["Pu","O","H"],
+             "descriptor": {
+                 "type": "se_e2_a",
+                 "sel": [48, 96, 120],
+                 "rcut_smth": 0.5,
+                 "rcut": 6.0,
+                 "neuron":	[25, 50, 100],
+                 "resnet_dt": false,
+                 "axis_neuron": 12,
+                 "precision": "float32",
+                 "seed": 1
+             },
+             "fitting_net": {
+                 "neuron": [240,240,240],
+                 "resnet_dt": true,
+                 "precision": "float32",
+                 "seed": 1
+             }
+         },
+         "learning_rate": {
+             "type": "exp",
+             "start_lr": 0.005,
+             "stop_lr":      1e-8,
+             "decay_steps": 5000        
+         },
+         "loss": {
+             "start_pref_e": 0.02,
+             "limit_pref_e": 1,
+             "start_pref_f": 1000,
+             "limit_pref_f": 1,
+             "start_pref_v": 0.0,
+             "limit_pref_v": 0.0
+         },
+         "training": {
+             "stop_batch": 400000,
+             "disp_file": "lcurve.out",
+             "disp_freq": 1000,
+             "numb_test": 4,
+             "save_freq": 1000,
+             "save_ckpt": "model.ckpt",
+             "disp_training": true,
+             "time_training": true,
+             "profiling": false,
+             "profiling_file": "timeline.json",
+             "_comment": "that's all"
+         }
+     },
+     "model_devi_dt": 0.0005,
+     "model_devi_skip": 0,
+     "model_devi_f_trust_hi": 0.4,
+     "model_devi_f_trust_lo": 0.25,
+     "model_devi_e_trust_lo": 10000000000.0,
+     "model_devi_e_trust_hi": 10000000000.0,
+     "model_devi_merge_traj": true,
+     "model_devi_clean_traj": false,
+     "training_init_module": true,
+     "model_devi_jobs": [
+         {"sys_idx": [0,1,2],"temps": [330,430,530],"press": [1.0],"trj_freq": 10,"nsteps": 2000,"ensemble": "nvt","_idx": "01",
+          "template":{ "lmp": "/home/zyz/user/zyz/dpgen/3/run_pt/input.lammps" },
+          "rev_mat":{ "lmp": {"V_NSTEPS": [2000], "V_TEMP": [330,430,530], "V_PRES": [1]}}
+          },
+                   {"sys_idx": [0,1,2],"temps": [330,430,530],"press": [1.0],"trj_freq": 10,"nsteps": 4000,"ensemble": "nvt","_idx": "01",
+          "template":{ "lmp": "/home/zyz/user/zyz/dpgen/3/run_pt/input.lammps" },
+          "rev_mat":{ "lmp": {"V_NSTEPS": [4000], "V_TEMP": [330,430,530], "V_PRES": [2]}}
+          },
+                   {"sys_idx": [0,1,2],"temps": [330,430,530],"press": [1.0],"trj_freq": 10,"nsteps": 8000,"ensemble": "nvt","_idx": "01",
+          "template":{ "lmp": "/home/zyz/user/zyz/dpgen/3/run_pt/input.lammps" },
+          "rev_mat":{ "lmp": {"V_NSTEPS": [8000], "V_TEMP": [330,430,530], "V_PRES": [3]}}
+          },
+                   {"sys_idx": [0,1,2],"temps": [330,430,530],"press": [1.0],"trj_freq": 10,"nsteps": 20000,"ensemble": "nvt","_idx": "01",
+          "template":{ "lmp": "/home/zyz/user/zyz/dpgen/3/run_pt/input.lammps" },
+          "rev_mat":{ "lmp": {"V_NSTEPS": [20000], "V_TEMP": [330,430,530], "V_PRES": [4]}}
+          },
+                   {"sys_idx": [0,1,2],"temps": [330,430,530],"press": [1.0],"trj_freq": 10,"nsteps": 20000,"ensemble": "nvt","_idx": "01",
+          "template":{ "lmp": "/home/zyz/user/zyz/dpgen/3/run_pt/input.lammps" },
+          "rev_mat":{ "lmp": {"V_NSTEPS": [20000], "V_TEMP": [330,430,530], "V_PRES": [5]}}
+          },
+                   {"sys_idx": [0,1,2],"temps": [330,430,530],"press": [1.0],"trj_freq": 10,"nsteps": 20000,"ensemble": "nvt","_idx": "01",
+          "template":{ "lmp": "/home/zyz/user/zyz/dpgen/3/run_pt/input.lammps" },
+          "rev_mat":{ "lmp": {"V_NSTEPS": [20000], "V_TEMP": [330,430,530], "V_PRES": [6]}}
+          },
+                   {"sys_idx": [0,1,2],"temps": [330,430,530],"press": [1.0],"trj_freq": 10,"nsteps": 20000,"ensemble": "nvt","_idx": "01",
+          "template":{ "lmp": "/home/zyz/user/zyz/dpgen/3/run_pt/input.lammps" },
+          "rev_mat":{ "lmp": {"V_NSTEPS": [20000], "V_TEMP": [330,430,530], "V_PRES": [7]}}
+          },
+                   {"sys_idx": [0,1,2],"temps": [330,430,530],"press": [1.0],"trj_freq": 10,"nsteps": 20000,"ensemble": "nvt","_idx": "01",
+          "template":{ "lmp": "/home/zyz/user/zyz/dpgen/3/run_pt/input.lammps" },
+          "rev_mat":{ "lmp": {"V_NSTEPS": [20000], "V_TEMP": [330,430,530], "V_PRES": [8]}}
+          },
+                   {"sys_idx": [0,1,2],"temps": [330,430,530],"press": [1.0],"trj_freq": 10,"nsteps": 20000,"ensemble": "nvt","_idx": "01",
+          "template":{ "lmp": "/home/zyz/user/zyz/dpgen/3/run_pt/input.lammps" },
+          "rev_mat":{ "lmp": {"V_NSTEPS": [20000], "V_TEMP": [330,430,530], "V_PRES": [9]}}
+          },
+                   {"sys_idx": [0,1,2],"temps": [330,430,530],"press": [1.0],"trj_freq": 10,"nsteps": 20000,"ensemble": "nvt","_idx": "01",
+          "template":{ "lmp": "/home/zyz/user/zyz/dpgen/3/run_pt/input.lammps" },
+          "rev_mat":{ "lmp": {"V_NSTEPS": [40000], "V_TEMP": [330,430,530], "V_PRES": [10]}}
+          },
+                   {"sys_idx": [0,1,2],"temps": [330,430,530],"press": [1.0],"trj_freq": 10,"nsteps": 20000,"ensemble": "nvt","_idx": "01",
+          "template":{ "lmp": "/home/zyz/user/zyz/dpgen/3/run_pt/input.lammps" },
+          "rev_mat":{ "lmp": {"V_NSTEPS": [40000], "V_TEMP": [330,430,530], "V_PRES": [11]}}
+          },
+                   {"sys_idx": [0,1,2],"temps": [330,430,530],"press": [1.0],"trj_freq": 10,"nsteps": 20000,"ensemble": "nvt","_idx": "01",
+          "template":{ "lmp": "/home/zyz/user/zyz/dpgen/3/run_pt/input.lammps" },
+          "rev_mat":{ "lmp": {"V_NSTEPS": [40000], "V_TEMP": [330,430,530], "V_PRES": [12]}}
+          }
+    ],
+    "fp_style": "cp2k",
+    "shuffle_poscar": false,
+    "fp_task_max": 200,
+    "fp_task_min": 1,
+    "ratio_failed": 0.3,
+    "fp_pp_path": "/home/zyz/software/cp2k/data/",
+    "fp_pp_files": ["POTENTIALS_ZYZ"],
+    "external_input_path": "/home/zyz/user/zyz/dpgen/3/run_pt/cp2k.inp"
+}
